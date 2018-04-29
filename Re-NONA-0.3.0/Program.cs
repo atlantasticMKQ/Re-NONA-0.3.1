@@ -148,7 +148,7 @@ namespace Re_NONA_
             //"->check:检查元件状态\n" +
             //"->run:运行元件\n" +
             //"->ports:显示端口状态(待改进)\n" +
-            //"[请注意大小写]"
+            Console.WriteLine();
             Console.WriteLine("******欢迎使用Re-NONA-0.3.0******");
             Console.WriteLine( 
                 "Re-NONA-是一款逻辑门电路创建游戏,\n" +
