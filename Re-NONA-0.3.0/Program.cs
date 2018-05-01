@@ -761,11 +761,9 @@ namespace Re_NONA_
             {
                 if (ToolsData.tools1[i].ifWaitCtrl == true)
                 {
-                    Console.WriteLine("MQW");
                     PreRun(i);
                     ToolsData.tools1[i].Run();
                     PreRun(i);
-                    Console.Write("w");
                 }
             }
             for (int j = 0; j < 1000; j++)
