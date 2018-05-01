@@ -4,14 +4,61 @@
     using System.Threading;
     internal class And : Tools
     {
-        public And(uint iA, uint iB, uint o)
+        public And()
         {
+            stop2:
+            Console.Write("输入A:");
+            try
+            {
+                base.inputIndexA = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop2;
+            }
+            stop3:
+            Console.Write("输入B:");
+            try
+            {
+                base.inputIndexB = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop3;
+            }
+            stop4:
+            Console.Write("输出:");
+            try
+            {
+                base.outputIndex = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop4;
+            }
+            Console.Write("可延迟?(y/n)");
+            switch (Console.ReadLine())
+            {
+                case "y":
+                    base.ifWaitCtrl = true;
+                    break;
+            }
+            Tools.Number++;
+        }
+
+        public And(uint iA, uint iB, uint o, bool iWC)
+        {
+
             base.ToolsNumber = Tools.Number;
             Tools.Number++;
             base.inputIndexA = iA;
             base.inputIndexB = iB;
             base.outputIndex = o;
             base.waitForOutput = Port.ports[iA] && Port.ports[iB];
+            base.ifWaitCtrl = iWC;
         }
 
         public void PreRun()
@@ -19,9 +66,115 @@
             base.waitForOutput = Port.ports[base.inputIndexA] && Port.ports[base.inputIndexB];
         }
     }
+    internal class Or : Tools
+    {
+        public Or()
+        {
+            stop2:
+            Console.Write("输入A:");
+            try
+            {
+                base.inputIndexA = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop2;
+            }
+            stop3:
+            Console.Write("输入B:");
+            try
+            {
+                base.inputIndexB = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop3;
+            }
+            stop4:
+            Console.Write("输出:");
+            try
+            {
+                base.outputIndex = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop4;
+            }
+            Console.Write("可延迟?(y/n)");
+            switch (Console.ReadLine())
+            {
+                case "y":
+                    base.ifWaitCtrl = true;
+                    break;
+            }
+            Tools.Number++;
+        }
+        public Or(uint iA, uint iB, uint o, bool iWC)
+        {
+            base.ToolsNumber = Tools.Number;
+            Tools.Number++;
+            base.inputIndexA = iA;
+            base.inputIndexB = iB;
+            base.outputIndex = o;
+            base.waitForOutput = Port.ports[base.inputIndexA] || Port.ports[base.inputIndexB];
+            base.ifWaitCtrl = iWC;
+        }
+
+        public void PreRun()
+        {
+            base.waitForOutput = Port.ports[base.inputIndexA] || Port.ports[base.inputIndexB];
+        }
+    }
     internal class Nand : Tools
     {
-        public Nand(uint iA, uint iB, uint o)
+        public Nand()
+        {
+            stop2:
+            Console.Write("输入A:");
+            try
+            {
+                base.inputIndexA = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop2;
+            }
+            stop3:
+            Console.Write("输入B:");
+            try
+            {
+                base.inputIndexB = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop3;
+            }
+            stop4:
+            Console.Write("输出:");
+            try
+            {
+                base.outputIndex = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop4;
+            }
+            Console.Write("可延迟?(y/n)");
+            switch (Console.ReadLine())
+            {
+                case "y":
+                    base.ifWaitCtrl = true;
+                    break;
+            }
+            Tools.Number++;
+        }
+        public Nand(uint iA, uint iB, uint o, bool iWC)
         {
             base.ToolsNumber = Tools.Number;
             Tools.Number++;
@@ -29,6 +182,7 @@
             base.inputIndexB = iB;
             base.outputIndex = o;
             base.waitForOutput = !Port.ports[base.inputIndexA] || !Port.ports[base.inputIndexB];
+            base.ifWaitCtrl = iWC;
         }
 
         public void PreRun()
@@ -38,7 +192,51 @@
     }
     internal class Nor : Tools
     {
-        public Nor(uint iA, uint iB, uint o)
+        public Nor()
+        {
+            stop2:
+            Console.Write("输入A:");
+            try
+            {
+                base.inputIndexA = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop2;
+            }
+            stop3:
+            Console.Write("输入B:");
+            try
+            {
+                base.inputIndexB = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop3;
+            }
+            stop4:
+            Console.Write("输出:");
+            try
+            {
+                base.outputIndex = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop4;
+            }
+            Console.Write("可延迟?(y/n)");
+            switch (Console.ReadLine())
+            {
+                case "y":
+                    base.ifWaitCtrl = true;
+                    break;
+            }
+            Tools.Number++;
+        }
+        public Nor(uint iA, uint iB, uint o, bool iWC)
         {
             base.ToolsNumber = Tools.Number;
             Tools.Number++;
@@ -46,6 +244,7 @@
             base.inputIndexB = iB;
             base.outputIndex = o;
             base.waitForOutput = !Port.ports[base.inputIndexA] && !Port.ports[base.inputIndexB];
+            base.ifWaitCtrl = iWC;
         }
 
         public void PreRun()
@@ -55,13 +254,47 @@
     }
     internal class Not : Tools
     {
-        public Not(uint iA, uint o)
+        public Not()
+        {
+            stop2:
+            Console.Write("输入:");
+            try
+            {
+                base.inputIndexA = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop2;
+            }
+            stop4:
+            Console.Write("输出:");
+            try
+            {
+                base.outputIndex = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop4;
+            }
+            Console.Write("可延迟?(y/n)");
+            switch (Console.ReadLine())
+            {
+                case "y":
+                    base.ifWaitCtrl = true;
+                    break;
+            }
+            Tools.Number++;
+        }
+        public Not(uint iA, uint o, bool iWC)
         {
             base.ToolsNumber = Tools.Number;
             Tools.Number++;
             base.inputIndexA = iA;
             base.outputIndex = o;
             base.waitForOutput = !Port.ports[base.inputIndexA];
+            base.ifWaitCtrl = iWC;
         }
 
         public void PreRun()
@@ -71,40 +304,57 @@
     }
     internal class Is : Tools
     {
-        public Is(uint iA, uint o)
+        public Is()
+        {
+            stop2:
+            Console.Write("输入:");
+            try
+            {
+                base.inputIndexA = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop2;
+            }
+            stop4:
+            Console.Write("输出:");
+            try
+            {
+                base.outputIndex = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("输入错误");
+                goto stop4;
+            }
+            Console.Write("可延迟?(y/n)");
+            switch (Console.ReadLine())
+            {
+                case "y":
+                    base.ifWaitCtrl = true;
+                    break;
+            }
+            Tools.Number++;
+        }
+        public Is(uint iA, uint o, bool iWC)
         {
             base.ToolsNumber = Tools.Number;
             Tools.Number++;
             base.inputIndexA = iA;
             base.outputIndex = o;
             base.waitForOutput = Port.ports[base.inputIndexA];
+            base.ifWaitCtrl = iWC;
         }
 
         public void PreRun()
         {
             base.waitForOutput = Port.ports[base.inputIndexA];
-        }
-    }
-    internal class Or : Tools
-    {
-        public Or(uint iA, uint iB, uint o)
-        {
-            base.ToolsNumber = Tools.Number;
-            Tools.Number++;
-            base.inputIndexA = iA;
-            base.inputIndexB = iB;
-            base.outputIndex = o;
-            base.waitForOutput = Port.ports[base.inputIndexA] || Port.ports[base.inputIndexB];
-        }
-
-        public void PreRun()
-        {
-            base.waitForOutput = Port.ports[base.inputIndexA] || Port.ports[base.inputIndexB];
         }
     }
     internal class Port
     {
-        public static bool[] ports = new bool[0x2710];
+        public static bool[] ports = new bool[uint.MaxValue];
     }
     internal class Tools
     {
@@ -114,22 +364,26 @@
         public uint outputIndex;
         public uint ToolsNumber;
         public bool waitForOutput;
-
+        public bool ifWaitCtrl = false;
         public void Run()
         {
-            if (Port.ports[this.outputIndex] != this.waitForOutput)
-            {
-                Port.ports[this.outputIndex] = this.waitForOutput;
-            }
+            if (this.ifWaitCtrl == true)
+                Console.WriteLine("MKQ");
+
+            Port.ports[this.outputIndex] = this.waitForOutput;
+
         }
     }
 }
-
 namespace Re_NONA_
 {
     using Re_NONA_.Elecment;
     using System.Threading;
     using System;
+    internal class MKQ
+    {
+
+    }
     internal class Ctrl
     {
         public static void Help()
@@ -150,7 +404,7 @@ namespace Re_NONA_
             //"->ports:显示端口状态(待改进)\n" +
             Console.WriteLine();
             Console.WriteLine("******欢迎使用Re-NONA-0.3.0******");
-            Console.WriteLine( 
+            Console.WriteLine(
                 "Re-NONA-是一款逻辑门电路创建游戏,\n" +
                 "在游戏中,玩家可以了解到计算机的原理以及亲身体验发展过程");
             Console.WriteLine(
@@ -167,19 +421,21 @@ namespace Re_NONA_
             Console.WriteLine("功能介绍:");
             Console.WriteLine(
                 "->New:在端口之间创建新的逻辑门元件\n" +
-                "->News(消歧义):一次性创建多个元件\n" +
+                "->Plural:一次性创建多个元件\n" +
                 "->Run:运行电路\n" +
-                "->AutoRun:自动运行,暂无法退出\n" +
+                "->AutoRun:自动运行500次\n" +
                 "");
+            Console.WriteLine("可延迟元件说明");
+            Console.WriteLine("玩家可以创建延迟元件,这种元件从收到输入端的改变后,\n将其反馈到输出端需要一定的时间");
         }
         public static void Set()
         {
             bool ifOver = false;
             Console.WriteLine("设置结束请输入stop");
-            while(!ifOver)
+            while (!ifOver)
             {
                 byte portNum = 0;
-                stop1:
+                ResetPortNum:
                 Console.Write("端口号:");
                 try
                 {
@@ -187,9 +443,10 @@ namespace Re_NONA_
                 }
                 catch
                 {
-                    goto stop1;
+                    Console.WriteLine("输入错误");
+                    goto ResetPortNum;
                 }
-                Console.WriteLine("目前状态:[{0}]{1}",portNum,Port.ports[portNum]?"1":"0");
+                Console.WriteLine("目前状态:[{0}]{1}", portNum, Port.ports[portNum] ? "1" : "0");
                 Console.WriteLine("是否更改(y/n)");
                 switch (Console.ReadLine())
                 {
@@ -213,214 +470,35 @@ namespace Re_NONA_
             switch (Console.ReadLine())
             {
                 case "and":
-                    {
-                        uint iA, iB, o;
-                        stop2:
-                        Console.Write("输入A:");
-                        try
-                        {
-                             iA = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop2;
-                        }
-                        stop3:
-                        Console.Write("输入B:");
-                        try
-                        {
-                            iB = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop3;
-                        }
-                        stop4:
-                        Console.Write("输出:");
-                        try
-                        {
-                            o = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop4;
-                        }
-                        ToolsData.tools[Tools.Number] = new And(iA, iB, o);
-                        break;
-                    }
+                    ToolsData.tools1[Tools.Number] = new And();
+                    break;
                 case "nand":
-                    {
-                        uint num4, num5, num6;
-                        stop5:
-                        Console.Write("输入A:");
-                        try
-                        {
-                            num4 = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop5;
-                        }
-                        stop6:
-                        Console.Write("输入B:");
-                        try
-                        {
-                            num5 = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop6;
-                        }
-                        stop7:
-                        Console.Write("输出:");
-                        try
-                        {
-                            num6 = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop7;
-                        }
-                        ToolsData.tools[Tools.Number] = new Nand(num4, num5, num6);
-                        break;
-                    }
+                    ToolsData.tools1[Tools.Number] = new Nand();
+                    break;
                 case "or":
-                    {
-                        uint num7, num8, num9;
-                        stop8:
-                        Console.Write("输入A:");
-                        try
-                        {
-                            num7 = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop8;
-                        }
-                        stop9:
-                        Console.Write("输入B:");
-                        try
-                        {
-                            num8 = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop9;
-                        }
-                        stop10:
-                        Console.Write("输出:");
-                        try
-                        {
-                            num9 = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop10;
-                        }
-                        ToolsData.tools[Tools.Number] = new Or(num7, num8, num9);
-                        break;
-                    }
+                    ToolsData.tools1[Tools.Number] = new Or();
+                    break;
                 case "nor":
-                    {
-                        uint num10, num11, num12;
-                        stop11:
-                        Console.Write("输入A:");
-                        try
-                        {
-                            num10 = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop11;
-                        }
-                        stop12:
-                        Console.Write("输入B:");
-                        try
-                        {
-                            num11 = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop12;
-                        }
-                        stop13:
-                        Console.Write("输出:");
-                        try
-                        {
-                            num12 = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop13;
-                        }
-                        ToolsData.tools[Tools.Number] = new Nor(num10, num11, num12);
-                        break;
-                    }
+                    ToolsData.tools1[Tools.Number] = new Nor();
+                    break;
                 case "not":
-                    {
-                        uint num13, num14;
-                        stop14:
-                        Console.Write("输入:");
-                        try
-                        {
-                            num13 = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop14;
-                        }
-                        stop15:
-                        Console.Write("输出:");
-                        try
-                        {
-                            num14 = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop15;
-                        }
-                        ToolsData.tools[Tools.Number] = new Not(num13, num14);
-                        break;
-                    }
+                    ToolsData.tools1[Tools.Number] = new Not();
+                    break;
                 case "is":
-                    {
-                        uint num13, num14;
-                        stop30:
-                        Console.Write("输入:");
-                        try
-                        {
-                            num13 = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop30;
-                        }
-                        stop31:
-                        Console.Write("输出:");
-                        try
-                        {
-                            num14 = Convert.ToUInt32(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            goto stop31;
-                        }
-                        ToolsData.tools[Tools.Number] = new Is(num13, num14);
-                        break;
-                    }
+                    ToolsData.tools1[Tools.Number] = new Is();
+                    break;
                 default:
                     Console.WriteLine("未定义之指令");
                     break;
             }
         }
-
-        public static void News()
+        public static void Plural()
         {
             Console.WriteLine("批量创建类型待输入...(and/nand/or/nor/not/is)");
             switch (Console.ReadLine())
             {
                 case "and":
-                    stop16:
+                    Reand:
                     try
                     {
                         Console.Write("创建个数:");
@@ -428,351 +506,318 @@ namespace Re_NONA_
                         Console.Write("输入A起始:");
                         uint iA = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔:");
-                        uint num3 = Convert.ToUInt32(Console.ReadLine());
+                        uint distanceOfiA = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输入B起始:");
                         uint iB = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔:");
-                        uint num5 = Convert.ToUInt32(Console.ReadLine());
+                        uint distanceOfiB = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输出起始:");
                         uint o = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔:");
-                        uint num7 = Convert.ToUInt32(Console.ReadLine());
+                        uint distanceOfo = Convert.ToUInt32(Console.ReadLine());
                         for (uint i = 0; i < num; i++)
                         {
-                            ToolsData.tools[Tools.Number] = new And(iA, iB, o);
-                            iA += num3;
-                            iB += num5;
-                            o += num7;
+                            ToolsData.tools1[Tools.Number] = new And(iA, iB, o, false);
+                            iA += distanceOfiA;
+                            iB += distanceOfiB;
+                            o += distanceOfo;
                         }
                         break;
                     }
                     catch
                     {
-                        goto stop16;
+                        Console.WriteLine("输入错误");
+                        goto Reand;
                     }
                 case "nand":
-                    stop17:
+                    Renand:
                     try
                     {
                         Console.Write("创建个数:");
-                        uint num8 = Convert.ToUInt32(Console.ReadLine());
+                        uint num = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输入A起始:");
-                        uint num9 = Convert.ToUInt32(Console.ReadLine());
+                        uint iA = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔");
-                        uint num10 = Convert.ToUInt32(Console.ReadLine());
+                        uint distanceOfiA = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输入B起始:");
-                        uint num11 = Convert.ToUInt32(Console.ReadLine());
+                        uint iB = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔");
-                        uint num12 = Convert.ToUInt32(Console.ReadLine());
+                        uint distanceOfiB = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输出起始:");
-                        uint num13 = Convert.ToUInt32(Console.ReadLine());
+                        uint o = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔");
-                        uint num14 = Convert.ToUInt32(Console.ReadLine());
-                        for (int j = 0; j < num8; j++)
+                        uint distanceOfo = Convert.ToUInt32(Console.ReadLine());
+                        for (int j = 0; j < num; j++)
                         {
-                            ToolsData.tools[Tools.Number] = new Nand(num9, num11, num13);
-                            num9 += num10;
-                            num11 += num12;
-                            num13 += num14;
+                            ToolsData.tools1[Tools.Number] = new Nand(iA, iB, o, false);
+                            iA += distanceOfiA;
+                            iB += distanceOfiB;
+                            o += distanceOfo;
                         }
                         break;
                     }
                     catch
                     {
-                        goto stop17;
+                        Console.WriteLine("输入错误");
+                        goto Renand;
                     }
                 case "or":
-                    stop18:
+                    Reor:
                     try
                     {
                         Console.Write("创建个数:");
-                        uint num15 = Convert.ToUInt32(Console.ReadLine());
+                        uint num = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输入A起始:");
-                        uint num16 = Convert.ToUInt32(Console.ReadLine());
+                        uint iA = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔");
-                        uint num17 = Convert.ToUInt32(Console.ReadLine());
+                        uint distanceOfiA = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输入B起始:");
-                        uint num18 = Convert.ToUInt32(Console.ReadLine());
+                        uint iB = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔");
-                        uint num19 = Convert.ToUInt32(Console.ReadLine());
+                        uint distanceOfiB = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输出起始:");
-                        uint num20 = Convert.ToUInt32(Console.ReadLine());
+                        uint o = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔");
-                        uint num21 = Convert.ToUInt32(Console.ReadLine());
-                        for (int k = 0; k < num15; k++)
+                        uint distanceOfo = Convert.ToUInt32(Console.ReadLine());
+                        for (int k = 0; k < num; k++)
                         {
-                            ToolsData.tools[Tools.Number] = new Or(num16, num18, num20);
-                            num16 += num17;
-                            num18 += num19;
-                            num20 += num21;
+                            ToolsData.tools1[Tools.Number] = new Or(iA, iB, o, false);
+                            iA += distanceOfiA;
+                            iB += distanceOfiB;
+                            o += distanceOfo;
                         }
                         break;
                     }
                     catch
                     {
-                        goto stop18;
+                        Console.WriteLine("输入错误");
+                        goto Reor;
                     }
                 case "nor":
-                    stop19:
+                    Renor:
                     try
                     {
                         Console.Write("创建个数:");
-                        uint num22 = Convert.ToUInt32(Console.ReadLine());
+                        uint num = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输入A起始:");
-                        uint num23 = Convert.ToUInt32(Console.ReadLine());
+                        uint iA = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔");
-                        uint num24 = Convert.ToUInt32(Console.ReadLine());
+                        uint distanceOfiA = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输入B起始:");
-                        uint num25 = Convert.ToUInt32(Console.ReadLine());
+                        uint iB = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔");
-                        uint num26 = Convert.ToUInt32(Console.ReadLine());
+                        uint distanceOfiB = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输出起始:");
-                        uint num27 = Convert.ToUInt32(Console.ReadLine());
+                        uint o = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔");
-                        uint num28 = Convert.ToUInt32(Console.ReadLine());
-                        for (int m = 0; m < num22; m++)
+                        uint distanceOfo = Convert.ToUInt32(Console.ReadLine());
+                        for (int m = 0; m < num; m++)
                         {
-                            ToolsData.tools[Tools.Number] = new Nor(num23, num25, num27);
-                            num23 += num24;
-                            num25 += num26;
-                            num27 += num28;
+                            ToolsData.tools1[Tools.Number] = new Nor(iA, iB, o, false);
+                            iA += distanceOfiA;
+                            iB += distanceOfiB;
+                            o += distanceOfo;
                         }
                         break;
                     }
                     catch
                     {
-                        goto stop19;
+                        Console.WriteLine("输入错误");
+                        goto Renor;
                     }
                 case "not":
-                    stop20:
+                    Renot:
                     try
                     {
                         Console.Write("创建个数:");
-                        uint num29 = Convert.ToUInt32(Console.ReadLine());
+                        uint num = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输入起始:");
-                        uint num30 = Convert.ToUInt32(Console.ReadLine());
+                        uint i = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔");
-                        uint num31 = Convert.ToUInt32(Console.ReadLine());
+                        uint distanceOfi = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输出起始:");
-                        uint num32 = Convert.ToUInt32(Console.ReadLine());
+                        uint o = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔");
-                        uint num33 = Convert.ToUInt32(Console.ReadLine());
-                        for (int n = 0; n < num29; n++)
+                        uint distanceOfo = Convert.ToUInt32(Console.ReadLine());
+                        for (int n = 0; n < num; n++)
                         {
-                            ToolsData.tools[Tools.Number] = new Not(num30, num32);
-                            num30 += num31;
-                            num32 += num33;
+                            ToolsData.tools1[Tools.Number] = new Not(i, o, false);
+                            i += distanceOfi;
+                            o += distanceOfo;
                         }
                         break;
                     }
                     catch
                     {
-                        goto stop20;
+                        Console.WriteLine("输入错误");
+                        goto Renot;
                     }
                 case "is":
-                    stop33:
+                    Reis:
                     try
                     {
                         Console.Write("创建个数:");
-                        uint num29 = Convert.ToUInt32(Console.ReadLine());
+                        uint num = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输入起始:");
-                        uint num30 = Convert.ToUInt32(Console.ReadLine());
+                        uint i = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔");
-                        uint num31 = Convert.ToUInt32(Console.ReadLine());
+                        uint distanceOfi = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("输出起始:");
-                        uint num32 = Convert.ToUInt32(Console.ReadLine());
+                        uint o = Convert.ToUInt32(Console.ReadLine());
                         Console.Write("间隔");
-                        uint num33 = Convert.ToUInt32(Console.ReadLine());
-                        for (int n = 0; n < num29; n++)
+                        uint distanceOfo = Convert.ToUInt32(Console.ReadLine());
+                        for (int n = 0; n < num; n++)
                         {
-                            ToolsData.tools[Tools.Number] = new Is(num30, num32);
-                            num30 += num31;
-                            num32 += num33;
+                            ToolsData.tools1[Tools.Number] = new Is(i, o, false);
+                            i += distanceOfi;
+                            o += distanceOfo;
                         }
                         break;
                     }
                     catch
                     {
-                        goto stop33;
+                        Console.WriteLine("输入错误");
+                        goto Reis;
                     }
                 default:
                     Console.WriteLine("未定义之指令");
                     break;
             }
         }
-        public static void AutoRun(uint aa,uint bb)
+        public static void AutoRun(uint startPort, uint endPort)
         {
             bool ifOver = false;
+            int overTime = 0;
             int slpTime = 1;
-            stop21:
+            ResetSlptime:
             Console.WriteLine("主时钟刷新间隔待输入...(/ms)");
             try
             {
                 slpTime = Convert.ToInt32(Console.ReadLine());
+                if (slpTime < 0)
+                {
+                    slpTime = -slpTime;
+                }
             }
             catch
             {
-                goto stop21;
+                Console.WriteLine("输入错误");
+                goto ResetSlptime;
             }
             Console.WriteLine("任意键启动...");
             Console.ReadLine();
-            for (uint j = aa; j <= bb; j++)
+            for (uint j = startPort; j <= endPort; j++)
             {
                 Console.Write("[{0}]{1}", j, Port.ports[j] ? "1" : "0");
                 Console.Write("\n");
-                
+
             }
             Thread.Sleep(slpTime);
             while (!ifOver)
             {
-                
-                for (int i = 0; i < Tools.Number; i++)
-                {
-                    if (ToolsData.tools[i] is And)
-                    {
-                        ((And)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Nand)
-                    {
-                        ((Nand)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Or)
-                    {
-                        ((Or)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Nor)
-                    {
-                        ((Nor)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Not)
-                    {
-                        ((Not)ToolsData.tools[i]).PreRun();
-                    }
-                    else if(ToolsData.tools[i] is Is)
-                    {
-                        ((Is)ToolsData.tools[i]).PreRun();
-                    }
-                    ToolsData.tools[i].Run();
-
-                    if (ToolsData.tools[i] is And)
-                    {
-                        ((And)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Nand)
-                    {
-                        ((Nand)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Or)
-                    {
-                        ((Or)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Nor)
-                    {
-                        ((Nor)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Not)
-                    {
-                        ((Not)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Is)
-                    {
-                        ((Is)ToolsData.tools[i]).PreRun();
-                    }
-
-                }
-                for (uint j = aa; j <= bb; j++)
+                TestRun();
+                for (uint j = startPort; j <= endPort; j++)
                 {
                     Console.Write("[{0}]{1}", j, Port.ports[j] ? "1" : "0");
                     Console.Write("\n");
                 }
-
                 Thread.Sleep(slpTime);
+                overTime++;
+                if (overTime == 500)
+                {
+                    ifOver = true;
+                }
             }
-
         }
-        public static void Run(uint aa, uint bb)
+        public static void Run(uint startPort, uint endPort)
         {
             bool isOver = false;
             string input = null;
             Console.WriteLine("stop 指令用于退出...");
-            for (uint j = aa; j <= bb; j++)
+            for (uint j = startPort; j <= endPort; j++)
             {
                 Console.Write("[{0}]{1}", j, Port.ports[j] ? "1" : "0");
                 Console.Write("\n");
             }
+            Console.ReadLine();
             while (!isOver)
             {
-                for (int i = 0; i < Tools.Number; i++)
+                TestRun();
+                for (uint j = startPort; j <= endPort; j++)
                 {
-                    if (ToolsData.tools[i] is And)
-                    {
-                        ((And)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Nand)
-                    {
-                        ((Nand)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Or)
-                    {
-                        ((Or)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Nor)
-                    {
-                        ((Nor)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Not)
-                    {
-                        ((Not)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Is)
-                    {
-                        ((Is)ToolsData.tools[i]).PreRun();
-                    }
-                    ToolsData.tools[i].Run();
-                   
-                    if (ToolsData.tools[i] is And)
-                    {
-                        ((And)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Nand)
-                    {
-                        ((Nand)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Or)
-                    {
-                        ((Or)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Nor)
-                    {
-                        ((Nor)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Not)
-                    {
-                        ((Not)ToolsData.tools[i]).PreRun();
-                    }
-                    else if (ToolsData.tools[i] is Is)
-                    {
-                        ((Is)ToolsData.tools[i]).PreRun();
-                    }
-
+                    Console.Write("[{0}]{1}", j, Port.ports[j] ? "1" : "0");
+                    Console.Write("\n");
                 }
-                for (uint j = aa; j <= bb; j++)
-                    {
-                        Console.Write("[{0}]{1}", j, Port.ports[j]?"1":"0");
-                        Console.Write("\n");
-                    }
                 input = Console.ReadLine();
                 if (input == "stop")
                 {
                     isOver = true;
                 }
+            }
+        }
+        public static void TestRun()
+        {
+            for (int i = 0; i < Tools.Number; i++)
+            {
+                if (ToolsData.tools1[i].ifWaitCtrl == true)
+                {
+                    Console.WriteLine("MQW");
+                    PreRun(i);
+                    ToolsData.tools1[i].Run();
+                    PreRun(i);
+                    Console.Write("w");
+                }
+            }
+            for (int j = 0; j < 1000; j++)
+            {
+                for (int i = 0; i < Tools.Number; i++)
+                {
+                    if (ToolsData.tools1[i].ifWaitCtrl == false)
+                    {
+                        PreRun(i);
+                        ToolsData.tools1[i].Run();
+                        PreRun(i);
+                    }
+                }
+            }
+            for (int i = 0; i < Tools.Number; i++)
+            {
+                Console.WriteLine("{0}{1}", i, ToolsData.tools1[i].ifWaitCtrl);
+            }
 
+        }
+
+        public static void PreRun(int i)
+        {
+            if (ToolsData.tools1[i] is And)
+            {
+                ((And)ToolsData.tools1[i]).PreRun();
+            }
+            else if (ToolsData.tools1[i] is Nand)
+            {
+                ((Nand)ToolsData.tools1[i]).PreRun();
+            }
+            else if (ToolsData.tools1[i] is Or)
+            {
+                ((Or)ToolsData.tools1[i]).PreRun();
+            }
+            else if (ToolsData.tools1[i] is Nor)
+            {
+                ((Nor)ToolsData.tools1[i]).PreRun();
+            }
+            else if (ToolsData.tools1[i] is Not)
+            {
+                ((Not)ToolsData.tools1[i]).PreRun();
+            }
+            else if (ToolsData.tools1[i] is Is)
+            {
+                ((Is)ToolsData.tools1[i]).PreRun();
             }
         }
     }
     internal class ToolsData
     {
-        public static Tools[] tools = new Tools[byte.MaxValue];
+        public static Tools[] tools1 = new Tools[UInt16.MaxValue];
     }
     internal class Program
     {
@@ -792,7 +837,7 @@ namespace Re_NONA_
                              "11111111111111111111111111111111111111111111111\n");
             while (true)
             {
-                Console.WriteLine("指令待输入...(new/news/run/help/set/author/logo)");
+                Console.WriteLine("指令待输入...(new/news/run/autorun/help/set/author/logo)");
                 switch (Console.ReadLine())
                 {
                     case "new":
@@ -800,12 +845,12 @@ namespace Re_NONA_
                         break;
 
                     case "news":
-                        Ctrl.News();
+                        Ctrl.Plural();
                         break;
 
                     case "run":
-                        stop22:
-                        try 
+                        Rerun:
+                        try
                         {
                             Console.WriteLine("运行时显示端口待输入...");
                             Console.Write("起始端口:");
@@ -817,10 +862,11 @@ namespace Re_NONA_
                         }
                         catch
                         {
-                            goto stop22;
+                            Console.WriteLine("输入错误");
+                            goto Rerun;
                         }
                     case "autorun":
-                        stop23:
+                        Reautorun:
                         try
                         {
                             Console.WriteLine("运行时显示端口待输入...");
@@ -833,7 +879,8 @@ namespace Re_NONA_
                         }
                         catch
                         {
-                            goto stop23;
+                            Console.WriteLine("输入错误");
+                            goto Reautorun;
                         }
                     case "help":
                         Ctrl.Help();
@@ -841,7 +888,7 @@ namespace Re_NONA_
                     case "set":
                         Ctrl.Set();
                         break;
-                    case"author":
+                    case "author":
                         Console.WriteLine(
                             "11111111111011111111111111111111011111111111111\n11111111111000001111111111110000011111111111111\n11111111111100000000000000000000011111111111111\n11111111111100000000000000000000000001111111111\n11111111110000000000000000000000000000000111111\n11111100000000000000000000000000000000000000111\n11000000000000000000000000000000000000000000011\n00000000000000000000000000000000000000000000001\n00000000000000000000000000000000000000000000011\n11101110000111111110000000100000000000000000111\n11111000000110111100000000000000000000000001111\n11111100001001111100000000000000000000000111111\n11111000011111111000000000000000000000000111111\n11100000111111111000000000000000000011000001111\n10000001111111110000000000000011111111100000111\n10000011111111100000000000000011111111111101111\n11001111111111100000000000000011111111111111111\n11111111111111110000000000000011111111111111111\n11111111111111111000000000000111111111111111111\n11111111111111111101000001111111111111111111111\n11111111111111111111101001111111111111111111111\n11111111111111111111111111111111111111111111111\n11111111111111111111111111111111111111111111111\n");
                         break;
@@ -861,12 +908,12 @@ namespace Re_NONA_
                     default:
                         Console.WriteLine("未定义之指令");
                         break;
-                        
+
 
                 }
             }
         }
     }
-    
+
 }
 
