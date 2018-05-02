@@ -354,7 +354,7 @@
     }
     internal class Port
     {
-        public static bool[] ports = new bool[uint.MaxValue];
+        public static bool[] ports = new bool[10000];
     }
     internal class Tools
     {
@@ -367,8 +367,6 @@
         public bool ifWaitCtrl = false;
         public void Run()
         {
-            if (this.ifWaitCtrl == true)
-                Console.WriteLine("MKQ");
 
             Port.ports[this.outputIndex] = this.waitForOutput;
 
@@ -380,10 +378,6 @@ namespace Re_NONA_
     using Re_NONA_.Elecment;
     using System.Threading;
     using System;
-    internal class MKQ
-    {
-
-    }
     internal class Ctrl
     {
         public static void Help()
@@ -721,6 +715,7 @@ namespace Re_NONA_
                     Console.Write("[{0}]{1}", j, Port.ports[j] ? "1" : "0");
                     Console.Write("\n");
                 }
+                Console.WriteLine();
                 Thread.Sleep(slpTime);
                 overTime++;
                 if (overTime == 500)
@@ -778,10 +773,7 @@ namespace Re_NONA_
                     }
                 }
             }
-            for (int i = 0; i < Tools.Number; i++)
-            {
-                Console.WriteLine("{0}{1}", i, ToolsData.tools1[i].ifWaitCtrl);
-            }
+
 
         }
 
@@ -821,18 +813,14 @@ namespace Re_NONA_
     {
         private static void Main(string[] args)
         {
+            
+            Console.Title = "Re-NONA-0.3.1";
+            Console.Beep();
+            Console.WindowWidth = Console.LargestWindowWidth;
+            Console.WindowHeight = Console.LargestWindowHeight;
             Console.WriteLine("**************NONA***************");
-            Console.WriteLine(
-                             "11111111111111111111111111111111111111111111111\n" +
-                             "11111111111111111111111111111111111111111111111\n" +
-                             "11111111000011001000000111000110111000111111111\n" +
-                             "11111110001011011001100011010110111010011111111\n" +
-                             "11111110011000011011110010010110110011011111111\n" +
-                             "11111100111100011001110010111001100111101111111\n" +
-                             "11111100111100011100000110111001001111100111111\n" +
-                             "11111101111111011111111110111011001111100111111\n" +
-                             "11111111111111111111111111111111111111111111111\n" +
-                             "11111111111111111111111111111111111111111111111\n");
+            Console.WriteLine("欢迎使用Re-NONA-0.3.1");
+            
             while (true)
             {
                 Console.WriteLine("指令待输入...(new/news/run/autorun/help/set/author/logo)");
