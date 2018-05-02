@@ -415,7 +415,7 @@ namespace Re_NONA_
             Console.WriteLine("功能介绍:");
             Console.WriteLine(
                 "->New:在端口之间创建新的逻辑门元件\n" +
-                "->Plural:一次性创建多个元件\n" +
+                "->News:一次性创建多个元件\n" +
                 "->Run:运行电路\n" +
                 "->AutoRun:自动运行500次\n" +
                 "");
@@ -823,7 +823,7 @@ namespace Re_NONA_
             
             while (true)
             {
-                Console.WriteLine("指令待输入...(new/news/run/autorun/help/set/author/logo)");
+                Console.WriteLine("指令待输入...(new/news/run/autorun/help/set/clear/author/logo)");
                 switch (Console.ReadLine())
                 {
                     case "new":
@@ -890,6 +890,18 @@ namespace Re_NONA_
                              "11111101111111011111111110111011001111100111111\n" +
                              "11111111111111111111111111111111111111111111111\n" +
                              "11111111111111111111111111111111111111111111111\n");
+                        break;
+                    case "clear":
+                        for (int i = 0; i < Port.ports.Length; i++)
+                        {
+                            Port.ports[i] = false;
+                        }
+                        for (int i = 0; i < ToolsData.tools1.Length; i++)
+                        {
+                            ToolsData.tools1[i] = null;
+                        }
+                        Tools.Number = 0;
+                        Console.WriteLine("所有数据已清除");
                         break;
                     default:
                         Console.WriteLine("未定义之指令");
