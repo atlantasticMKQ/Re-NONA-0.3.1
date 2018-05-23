@@ -373,6 +373,23 @@
         }
     }
 }
+namespace LanguageSet
+{
+    static class Language
+    {
+        public static string[,] Data = 
+        { 
+            { "Welcome to Re-NONA-0.3.1", "欢迎使用Re-NONA-0.3.1"},
+            { "Waiting for input...(new/news/run/autorun/help/set/clear/author/logo)", "指令待输入...(new/news/run/autorun/help/set/clear/author/logo)" },
+            { "Runtime output ports index waiting...", "运行时显示端口待输入..."}, 
+            { "start port:","起始端口:"},
+            { "end port","终止端口:"},
+            { "Error","输入错误"},
+            
+        };
+        
+    }
+}
 namespace Re_NONA_
 {
     using Re_NONA_.Elecment;
@@ -425,23 +442,23 @@ namespace Re_NONA_
         public static void Set()
         {
             bool ifOver = false;
-            Console.WriteLine("设置结束请输入stop");
+            Console.WriteLine("input stop to out");
             while (!ifOver)
             {
                 byte portNum = 0;
                 ResetPortNum:
-                Console.Write("端口号:");
+                Console.Write("port index:");
                 try
                 {
                     portNum = Convert.ToByte(Console.ReadLine());
                 }
                 catch
                 {
-                    Console.WriteLine("输入错误");
+                    Console.WriteLine(LanguageSet.Language.Data[Program.L, 5]);
                     goto ResetPortNum;
                 }
-                Console.WriteLine("目前状态:[{0}]{1}", portNum, Port.ports[portNum] ? "1" : "0");
-                Console.WriteLine("是否更改(y/n)");
+                Console.WriteLine("Now:[{0}]{1}", portNum, Port.ports[portNum] ? "1" : "0");
+                Console.WriteLine("change?(y/n)");
                 switch (Console.ReadLine())
                 {
                     case "y":
@@ -460,7 +477,7 @@ namespace Re_NONA_
         }
         public static void New()
         {
-            Console.WriteLine("创建类型待输入...(and/nand/or/nor/not/is)");
+            Console.WriteLine("Type input waiting...(and/nand/or/nor/not/is)");
             switch (Console.ReadLine())
             {
                 case "and":
@@ -482,32 +499,32 @@ namespace Re_NONA_
                     ToolsData.tools1[Tools.Number] = new Is();
                     break;
                 default:
-                    Console.WriteLine("未定义之指令");
+                    Console.WriteLine("undefine");
                     break;
             }
         }
         public static void Plural()
         {
-            Console.WriteLine("批量创建类型待输入...(and/nand/or/nor/not/is)");
+            Console.WriteLine("Type input waiting...(and/nand/or/nor/not/is)");
             switch (Console.ReadLine())
             {
                 case "and":
                     Reand:
                     try
                     {
-                        Console.Write("创建个数:");
+                        Console.Write("amount:");
                         uint num = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输入A起始:");
+                        Console.Write("inputA start:");
                         uint iA = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔:");
+                        Console.Write("sleep:");
                         uint distanceOfiA = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输入B起始:");
+                        Console.Write("inputB start:");
                         uint iB = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔:");
+                        Console.Write("sleep:");
                         uint distanceOfiB = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输出起始:");
+                        Console.Write("output start:");
                         uint o = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔:");
+                        Console.Write("sleep:");
                         uint distanceOfo = Convert.ToUInt32(Console.ReadLine());
                         for (uint i = 0; i < num; i++)
                         {
@@ -520,7 +537,7 @@ namespace Re_NONA_
                     }
                     catch
                     {
-                        Console.WriteLine("输入错误");
+                        Console.WriteLine("Error");
                         goto Reand;
                     }
                 case "nand":
@@ -809,21 +826,25 @@ namespace Re_NONA_
     {
         public static Tools[] tools1 = new Tools[UInt16.MaxValue];
     }
-    internal class Program
+    public class Program
     {
+        public static int L = 0;
         private static void Main(string[] args)
         {
-            
-            Console.Title = "Re-NONA-0.3.1";
+            Console.Title = "Re-NONA0.3.0";
             Console.Beep();
-            Console.WindowWidth = Console.LargestWindowWidth;
             Console.WindowHeight = Console.LargestWindowHeight;
+            Console.WindowWidth = Console.LargestWindowWidth;
+            Console.WriteLine("Loading...");
+            System.Threading.Thread.Sleep(1000);
             Console.WriteLine("**************NONA***************");
-            Console.WriteLine("欢迎使用Re-NONA-0.3.1");
+            
+            Console.WriteLine(LanguageSet.Language.Data[0,L]);
+            
             
             while (true)
             {
-                Console.WriteLine("指令待输入...(new/news/run/autorun/help/set/clear/author/logo)");
+                Console.WriteLine(LanguageSet.Language.Data[1,L]);
                 switch (Console.ReadLine())
                 {
                     case "new":
@@ -838,34 +859,34 @@ namespace Re_NONA_
                         Rerun:
                         try
                         {
-                            Console.WriteLine("运行时显示端口待输入...");
-                            Console.Write("起始端口:");
+                            Console.WriteLine(LanguageSet.Language.Data[2,L]);
+                            Console.Write(LanguageSet.Language.Data[3,L]);
                             uint startPort = Convert.ToUInt32(Console.ReadLine());
-                            Console.Write("终止端口:");
+                            Console.Write(LanguageSet.Language.Data[4,L]);
                             uint endPort = Convert.ToUInt32(Console.ReadLine());
                             Ctrl.Run(startPort, endPort);
                             break;
                         }
                         catch
                         {
-                            Console.WriteLine("输入错误");
+                            Console.WriteLine(LanguageSet.Language.Data[5,L]);
                             goto Rerun;
                         }
                     case "autorun":
                         Reautorun:
                         try
                         {
-                            Console.WriteLine("运行时显示端口待输入...");
-                            Console.Write("起始端口:");
+                            Console.WriteLine(LanguageSet.Language.Data[2,L]);
+                            Console.Write(LanguageSet.Language.Data[3,L]);
                             uint startPort = Convert.ToUInt32(Console.ReadLine());
-                            Console.Write("终止端口:");
+                            Console.Write(LanguageSet.Language.Data[4,L]);
                             uint endPort = Convert.ToUInt32(Console.ReadLine());
                             Ctrl.AutoRun(startPort, endPort);
                             break;
                         }
                         catch
                         {
-                            Console.WriteLine("输入错误");
+                            Console.WriteLine(LanguageSet.Language.Data[5,L]);
                             goto Reautorun;
                         }
                     case "help":
@@ -901,10 +922,10 @@ namespace Re_NONA_
                             ToolsData.tools1[i] = null;
                         }
                         Tools.Number = 0;
-                        Console.WriteLine("所有数据已清除");
+                        Console.WriteLine("All data cleared");
                         break;
                     default:
-                        Console.WriteLine("未定义之指令");
+                        Console.WriteLine(LanguageSet.Language.Data[5,L]);
                         break;
 
 
