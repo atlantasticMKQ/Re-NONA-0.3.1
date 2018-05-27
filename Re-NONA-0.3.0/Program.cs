@@ -2,44 +2,149 @@
 {
     using System;
     using System.Threading;
-    internal class And : Tools
+    internal class Defined : Tools
     {
-        public And()
+        private static bool ifdefined = false;
+        static bool a, b, c, d;
+
+        public static bool Ifdefined { get => ifdefined; set => ifdefined = value; }
+
+        public void R() => base.waitForOutput =
+                (Port.ports[inputIndexA] == false && Port.ports[inputIndexB] == false) ?
+                a :
+                (
+                    (Port.ports[inputIndexA] == false && Port.ports[inputIndexB] == true) ?
+                    c :
+                    (
+                        (Port.ports[inputIndexA] == true && Port.ports[inputIndexB] == false) ?
+                        b :
+                        (
+                            (Port.ports[inputIndexA] == true && Port.ports[inputIndexB] == true) ?
+                            d : a
+                        )
+                    )
+                );
+        public static void Define()
+        {
+            Console.WriteLine(
+                "┌ - ┬ - ┬ A ┬ A ┐\n" +
+                "├ - ┼ - ┼ 0 ┼ 1 ┤\n" +
+                "├ B ┼ 0 ┼ a ┼ b ┤\n" +
+                "└ B ┴ 1 ┴ c ┴ d ┘\n" 
+                );
+            Console.WriteLine(LanguageSet.Language.Data[25,Program.L]);
+            Console.Write("a=");
+            a = Console.ReadLine() == "0" ? false:true;
+            Console.WriteLine();
+            Console.Write("b=");
+            b = Console.ReadLine() == "0" ? false : true;
+            Console.WriteLine();
+            Console.Write("c=");
+            c = Console.ReadLine() == "0" ? false : true;
+            Console.WriteLine();
+            Console.Write("d=");
+            d = Console.ReadLine() == "0" ? false : true;
+            Console.WriteLine();
+            ifdefined = true;
+        }
+        public Defined()
         {
             stop2:
-            Console.Write("输入A:");
+            Console.Write(LanguageSet.Language.Data[26,Program.L]);
             try
             {
                 base.inputIndexA = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop2;
             }
             stop3:
-            Console.Write("输入B:");
+            Console.Write(LanguageSet.Language.Data[27,Program.L]);
             try
             {
                 base.inputIndexB = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop3;
             }
             stop4:
-            Console.Write("输出:");
+            Console.Write(LanguageSet.Language.Data[28, Program.L]);
             try
             {
                 base.outputIndex = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop4;
             }
-            Console.Write("可延迟?(y/n)");
+            Console.Write(LanguageSet.Language.Data[29, Program.L]);
+            switch (Console.ReadLine())
+            {
+                case "y":
+                    base.ifWaitCtrl = true;
+                    break;
+            }
+            Tools.Number++;
+        }
+        public Defined(uint iA, uint iB, uint o, bool iWC)
+        {
+
+            base.ToolsNumber = Tools.Number;
+            Tools.Number++;
+            base.inputIndexA = iA;
+            base.inputIndexB = iB;
+            base.outputIndex = o;
+            R();
+            base.ifWaitCtrl = iWC;
+        }
+        public void PreRun()
+        {
+            R();
+        }
+    }
+    internal class And : Tools
+    {
+        public And()
+        {
+            stop2:
+            Console.Write(LanguageSet.Language.Data[26, Program.L]);
+            try
+            {
+                base.inputIndexA = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
+                goto stop2;
+            }
+            stop3:
+            Console.Write(LanguageSet.Language.Data[27, Program.L]);
+            try
+            {
+                base.inputIndexB = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
+                goto stop3;
+            }
+            stop4:
+            Console.Write(LanguageSet.Language.Data[28, Program.L]);
+            try
+            {
+                base.outputIndex = Convert.ToUInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
+                goto stop4;
+            }
+            Console.Write(LanguageSet.Language.Data[29, Program.L]);
             switch (Console.ReadLine())
             {
                 case "y":
@@ -71,39 +176,39 @@
         public Or()
         {
             stop2:
-            Console.Write("输入A:");
+            Console.Write(LanguageSet.Language.Data[26, Program.L]);
             try
             {
                 base.inputIndexA = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop2;
             }
             stop3:
-            Console.Write("输入B:");
+            Console.Write(LanguageSet.Language.Data[27, Program.L]);
             try
             {
                 base.inputIndexB = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop3;
             }
             stop4:
-            Console.Write("输出:");
+            Console.Write(LanguageSet.Language.Data[28, Program.L]);
             try
             {
                 base.outputIndex = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop4;
             }
-            Console.Write("可延迟?(y/n)");
+            Console.Write(LanguageSet.Language.Data[29, Program.L]);
             switch (Console.ReadLine())
             {
                 case "y":
@@ -133,39 +238,39 @@
         public Nand()
         {
             stop2:
-            Console.Write("输入A:");
+            Console.Write(LanguageSet.Language.Data[26, Program.L]);
             try
             {
                 base.inputIndexA = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop2;
             }
             stop3:
-            Console.Write("输入B:");
+            Console.Write(LanguageSet.Language.Data[27, Program.L]);
             try
             {
                 base.inputIndexB = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop3;
             }
             stop4:
-            Console.Write("输出:");
+            Console.Write(LanguageSet.Language.Data[28, Program.L]);
             try
             {
                 base.outputIndex = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop4;
             }
-            Console.Write("可延迟?(y/n)");
+            Console.Write(LanguageSet.Language.Data[29, Program.L]);
             switch (Console.ReadLine())
             {
                 case "y":
@@ -195,39 +300,39 @@
         public Nor()
         {
             stop2:
-            Console.Write("输入A:");
+            Console.Write(LanguageSet.Language.Data[26, Program.L]);
             try
             {
                 base.inputIndexA = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop2;
             }
             stop3:
-            Console.Write("输入B:");
+            Console.Write(LanguageSet.Language.Data[27, Program.L]);
             try
             {
                 base.inputIndexB = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop3;
             }
             stop4:
-            Console.Write("输出:");
+            Console.Write(LanguageSet.Language.Data[28, Program.L]);
             try
             {
                 base.outputIndex = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop4;
             }
-            Console.Write("可延迟?(y/n)");
+            Console.Write(LanguageSet.Language.Data[29, Program.L]);
             switch (Console.ReadLine())
             {
                 case "y":
@@ -257,28 +362,28 @@
         public Not()
         {
             stop2:
-            Console.Write("输入:");
+            Console.Write(LanguageSet.Language.Data[26, Program.L]);
             try
             {
                 base.inputIndexA = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop2;
             }
             stop4:
-            Console.Write("输出:");
+            Console.Write(LanguageSet.Language.Data[28, Program.L]);
             try
             {
                 base.outputIndex = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop4;
             }
-            Console.Write("可延迟?(y/n)");
+            Console.Write(LanguageSet.Language.Data[29, Program.L]);
             switch (Console.ReadLine())
             {
                 case "y":
@@ -307,28 +412,28 @@
         public Is()
         {
             stop2:
-            Console.Write("输入:");
+            Console.Write(LanguageSet.Language.Data[26, Program.L]);
             try
             {
                 base.inputIndexA = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop2;
             }
             stop4:
-            Console.Write("输出:");
+            Console.Write(LanguageSet.Language.Data[28, Program.L]);
             try
             {
                 base.outputIndex = Convert.ToUInt32(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                 goto stop4;
             }
-            Console.Write("可延迟?(y/n)");
+            Console.Write(LanguageSet.Language.Data[29,Program.L]);
             switch (Console.ReadLine())
             {
                 case "y":
@@ -377,15 +482,43 @@ namespace LanguageSet
 {
     static class Language
     {
-        public static string[,] Data = 
-        { 
-            { "Welcome to Re-NONA-0.3.1", "欢迎使用Re-NONA-0.3.1"},
-            { "Waiting for input...(new/news/run/autorun/help/set/clear/author/logo)", "指令待输入...(new/news/run/autorun/help/set/clear/author/logo)" },
-            { "Runtime output ports index waiting...", "运行时显示端口待输入..."}, 
+        public static string[,] Data =
+        {
+            { "Welcome to Re-NONA-0.3.2", "欢迎使用Re-NONA-0.3.2"},
+            { "Waiting for input...(new/news/run/autorun/help/set/clear/define/language/author/logo)", "指令待输入...(new/news/run/autorun/help/set/clear/define/language/author/logo)" },
+            { "Runtime output ports index waiting...", "运行时显示端口待输入..."},
             { "start port:","起始端口:"},
-            { "end port","终止端口:"},
+            { "end port:","终止端口:"},
+
             { "Error","输入错误"},
-            
+            {"Re-NONA-0.3.2","Re-NONA-0.3.2" },
+            {"Loading...","装载中..." },
+            {"input stop to quit","stop 指令用于退出..." },
+            {"port index:","端口序号:" },
+
+            {"change?(y/n)","更改?(y/n)" },
+            {"Type input waiting...(and/nand/or/nor/not/is/defined)","创建类型待输入...(and/nand/or/nor/not/is/defined)" },
+            {"undefine","未定义" },
+            {"amount:","数量:" },
+            {"inputA start:","输入A起始:" },
+
+            {"sleep:","间隔:" },
+            {"inputB start:","输入B起始:" },
+            {"output start:","输出起始:" },
+            {"Reflash frequency waiting...(/ms)","主时钟刷新间隔待输入...(/ms)" },
+            {"Press any key to start...","任意键启动..." },
+
+            {"Input stop to quit...","stop 指令用于退出..." },
+            {"All data cleared","一切数据均已清除" },
+            {"You have defined a elecment","你已经定义了一个类型" },
+            {"Redefine?(y/n)","重新定义?(y/n)" },
+            {"Supported language:English/Chinese","支持语言:英语/汉语" },
+
+            {"Please intput a,b,c,d","请输入a,b,c,d" },
+            {"inputA:","输入A:" },
+            {"inputB:","输入B:" },
+            {"output:","输出:" },
+            {"delayable?(y/n)","可延迟?(y/n)" },
         };
         
     }
@@ -442,23 +575,23 @@ namespace Re_NONA_
         public static void Set()
         {
             bool ifOver = false;
-            Console.WriteLine("input stop to out");
+            Console.WriteLine(LanguageSet.Language.Data[8,Program.L]);
             while (!ifOver)
             {
                 byte portNum = 0;
                 ResetPortNum:
-                Console.Write("port index:");
+                Console.Write(LanguageSet.Language.Data[9,Program.L]);
                 try
                 {
                     portNum = Convert.ToByte(Console.ReadLine());
                 }
                 catch
                 {
-                    Console.WriteLine(LanguageSet.Language.Data[Program.L, 5]);
+                    Console.WriteLine(LanguageSet.Language.Data[5,Program.L]);
                     goto ResetPortNum;
                 }
                 Console.WriteLine("Now:[{0}]{1}", portNum, Port.ports[portNum] ? "1" : "0");
-                Console.WriteLine("change?(y/n)");
+                Console.WriteLine(LanguageSet.Language.Data[10,Program.L]);
                 switch (Console.ReadLine())
                 {
                     case "y":
@@ -477,7 +610,7 @@ namespace Re_NONA_
         }
         public static void New()
         {
-            Console.WriteLine("Type input waiting...(and/nand/or/nor/not/is)");
+            Console.WriteLine(LanguageSet.Language.Data[11,Program.L]);
             switch (Console.ReadLine())
             {
                 case "and":
@@ -498,33 +631,42 @@ namespace Re_NONA_
                 case "is":
                     ToolsData.tools1[Tools.Number] = new Is();
                     break;
+                case "defined":
+                    if (Elecment.Defined.Ifdefined == false)
+                    {
+                        Elecment.Defined.Define();
+                    }
+                    ToolsData.tools1[Tools.Number] = new Defined();
+                    break;
+                case "stop":
+                    break;
                 default:
-                    Console.WriteLine("undefine");
+                    Console.WriteLine(LanguageSet.Language.Data[12,Program.L]);
                     break;
             }
         }
         public static void Plural()
         {
-            Console.WriteLine("Type input waiting...(and/nand/or/nor/not/is)");
+            Console.WriteLine(LanguageSet.Language.Data[11,Program.L]);
             switch (Console.ReadLine())
             {
                 case "and":
                     Reand:
                     try
                     {
-                        Console.Write("amount:");
+                        Console.Write(LanguageSet.Language.Data[13,Program.L]);
                         uint num = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("inputA start:");
+                        Console.Write(LanguageSet.Language.Data[14,Program.L]);
                         uint iA = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("sleep:");
+                        Console.Write(LanguageSet.Language.Data[15,Program.L]);
                         uint distanceOfiA = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("inputB start:");
+                        Console.Write(LanguageSet.Language.Data[16,Program.L]);
                         uint iB = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("sleep:");
+                        Console.Write(LanguageSet.Language.Data[15,Program.L]);
                         uint distanceOfiB = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("output start:");
+                        Console.Write(LanguageSet.Language.Data[17,Program.L]);
                         uint o = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("sleep:");
+                        Console.Write(LanguageSet.Language.Data[15,Program.L]);
                         uint distanceOfo = Convert.ToUInt32(Console.ReadLine());
                         for (uint i = 0; i < num; i++)
                         {
@@ -537,26 +679,26 @@ namespace Re_NONA_
                     }
                     catch
                     {
-                        Console.WriteLine("Error");
+                        Console.WriteLine(LanguageSet.Language.Data[5,Program.L]);
                         goto Reand;
                     }
                 case "nand":
                     Renand:
                     try
                     {
-                        Console.Write("创建个数:");
+                        Console.Write(LanguageSet.Language.Data[13, Program.L]);
                         uint num = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输入A起始:");
+                        Console.Write(LanguageSet.Language.Data[14, Program.L]);
                         uint iA = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔");
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
                         uint distanceOfiA = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输入B起始:");
+                        Console.Write(LanguageSet.Language.Data[16, Program.L]);
                         uint iB = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔");
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
                         uint distanceOfiB = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输出起始:");
+                        Console.Write(LanguageSet.Language.Data[17, Program.L]);
                         uint o = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔");
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
                         uint distanceOfo = Convert.ToUInt32(Console.ReadLine());
                         for (int j = 0; j < num; j++)
                         {
@@ -569,26 +711,26 @@ namespace Re_NONA_
                     }
                     catch
                     {
-                        Console.WriteLine("输入错误");
+                        Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                         goto Renand;
                     }
                 case "or":
                     Reor:
                     try
                     {
-                        Console.Write("创建个数:");
+                        Console.Write(LanguageSet.Language.Data[13, Program.L]);
                         uint num = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输入A起始:");
+                        Console.Write(LanguageSet.Language.Data[14, Program.L]);
                         uint iA = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔");
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
                         uint distanceOfiA = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输入B起始:");
+                        Console.Write(LanguageSet.Language.Data[16, Program.L]);
                         uint iB = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔");
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
                         uint distanceOfiB = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输出起始:");
+                        Console.Write(LanguageSet.Language.Data[17, Program.L]);
                         uint o = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔");
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
                         uint distanceOfo = Convert.ToUInt32(Console.ReadLine());
                         for (int k = 0; k < num; k++)
                         {
@@ -601,26 +743,26 @@ namespace Re_NONA_
                     }
                     catch
                     {
-                        Console.WriteLine("输入错误");
+                        Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                         goto Reor;
                     }
                 case "nor":
                     Renor:
                     try
                     {
-                        Console.Write("创建个数:");
+                        Console.Write(LanguageSet.Language.Data[13, Program.L]);
                         uint num = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输入A起始:");
+                        Console.Write(LanguageSet.Language.Data[14, Program.L]);
                         uint iA = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔");
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
                         uint distanceOfiA = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输入B起始:");
+                        Console.Write(LanguageSet.Language.Data[16, Program.L]);
                         uint iB = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔");
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
                         uint distanceOfiB = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输出起始:");
+                        Console.Write(LanguageSet.Language.Data[17, Program.L]);
                         uint o = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔");
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
                         uint distanceOfo = Convert.ToUInt32(Console.ReadLine());
                         for (int m = 0; m < num; m++)
                         {
@@ -633,22 +775,22 @@ namespace Re_NONA_
                     }
                     catch
                     {
-                        Console.WriteLine("输入错误");
+                        Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                         goto Renor;
                     }
                 case "not":
                     Renot:
                     try
                     {
-                        Console.Write("创建个数:");
+                        Console.Write(LanguageSet.Language.Data[13, Program.L]);
                         uint num = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输入起始:");
+                        Console.Write(LanguageSet.Language.Data[14, Program.L]);
                         uint i = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔");
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
                         uint distanceOfi = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输出起始:");
+                        Console.Write(LanguageSet.Language.Data[17, Program.L]);
                         uint o = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔");
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
                         uint distanceOfo = Convert.ToUInt32(Console.ReadLine());
                         for (int n = 0; n < num; n++)
                         {
@@ -660,22 +802,22 @@ namespace Re_NONA_
                     }
                     catch
                     {
-                        Console.WriteLine("输入错误");
+                        Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                         goto Renot;
                     }
                 case "is":
                     Reis:
                     try
                     {
-                        Console.Write("创建个数:");
+                        Console.Write(LanguageSet.Language.Data[13, Program.L]);
                         uint num = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输入起始:");
+                        Console.Write(LanguageSet.Language.Data[14, Program.L]);
                         uint i = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔");
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
                         uint distanceOfi = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("输出起始:");
+                        Console.Write(LanguageSet.Language.Data[17, Program.L]);
                         uint o = Convert.ToUInt32(Console.ReadLine());
-                        Console.Write("间隔");
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
                         uint distanceOfo = Convert.ToUInt32(Console.ReadLine());
                         for (int n = 0; n < num; n++)
                         {
@@ -687,11 +829,49 @@ namespace Re_NONA_
                     }
                     catch
                     {
-                        Console.WriteLine("输入错误");
+                        Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                         goto Reis;
                     }
+                case "defined":
+                    if (Elecment.Defined.Ifdefined == false)
+                    {
+                        Elecment.Defined.Define();
+                    }
+                    Redefined:
+                    try
+                    {
+                        Console.Write(LanguageSet.Language.Data[13, Program.L]);
+                        uint num = Convert.ToUInt32(Console.ReadLine());
+                        Console.Write(LanguageSet.Language.Data[14, Program.L]);
+                        uint iA = Convert.ToUInt32(Console.ReadLine());
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
+                        uint distanceOfiA = Convert.ToUInt32(Console.ReadLine());
+                        Console.Write(LanguageSet.Language.Data[16, Program.L]);
+                        uint iB = Convert.ToUInt32(Console.ReadLine());
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
+                        uint distanceOfiB = Convert.ToUInt32(Console.ReadLine());
+                        Console.Write(LanguageSet.Language.Data[17, Program.L]);
+                        uint o = Convert.ToUInt32(Console.ReadLine());
+                        Console.Write(LanguageSet.Language.Data[15, Program.L]);
+                        uint distanceOfo = Convert.ToUInt32(Console.ReadLine());
+                        for (uint i = 0; i < num; i++)
+                        {
+                            ToolsData.tools1[Tools.Number] = new Defined(iA, iB, o, false);
+                            iA += distanceOfiA;
+                            iB += distanceOfiB;
+                            o += distanceOfo;
+                        }
+                        break;
+                    }
+                    catch
+                    {
+                        Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
+                        goto Redefined;
+                    }
+                case "stop":
+                    break;
                 default:
-                    Console.WriteLine("未定义之指令");
+                    Console.WriteLine(LanguageSet.Language.Data[5, Program.L]);
                     break;
             }
         }
@@ -701,7 +881,7 @@ namespace Re_NONA_
             int overTime = 0;
             int slpTime = 1;
             ResetSlptime:
-            Console.WriteLine("主时钟刷新间隔待输入...(/ms)");
+            Console.WriteLine(LanguageSet.Language.Data[18,Program.L]);
             try
             {
                 slpTime = Convert.ToInt32(Console.ReadLine());
@@ -712,10 +892,10 @@ namespace Re_NONA_
             }
             catch
             {
-                Console.WriteLine("输入错误");
+                Console.WriteLine(LanguageSet.Language.Data[5,Program.L]);
                 goto ResetSlptime;
             }
-            Console.WriteLine("任意键启动...");
+            Console.WriteLine(LanguageSet.Language.Data[19,Program.L]);
             Console.ReadLine();
             for (uint j = startPort; j <= endPort; j++)
             {
@@ -735,7 +915,7 @@ namespace Re_NONA_
                 Console.WriteLine();
                 Thread.Sleep(slpTime);
                 overTime++;
-                if (overTime == 500)
+                if (overTime == 50)
                 {
                     ifOver = true;
                 }
@@ -745,7 +925,7 @@ namespace Re_NONA_
         {
             bool isOver = false;
             string input = null;
-            Console.WriteLine("stop 指令用于退出...");
+            Console.WriteLine(LanguageSet.Language.Data[20,Program.L]);
             for (uint j = startPort; j <= endPort; j++)
             {
                 Console.Write("[{0}]{1}", j, Port.ports[j] ? "1" : "0");
@@ -820,6 +1000,10 @@ namespace Re_NONA_
             {
                 ((Is)ToolsData.tools1[i]).PreRun();
             }
+            else if (ToolsData.tools1[i] is Defined)
+            {
+                ((Defined)ToolsData.tools1[i]).PreRun();
+            }
         }
     }
     internal class ToolsData
@@ -828,16 +1012,19 @@ namespace Re_NONA_
     }
     public class Program
     {
-        public static int L = 0;
+        private static int l = 0;
+
+        public static int L { get => l; set => l = value; }
+
         private static void Main(string[] args)
         {
-            Console.Title = "Re-NONA0.3.0";
+            Console.Title = LanguageSet.Language.Data[6,L];
             Console.Beep();
             Console.WindowHeight = Console.LargestWindowHeight;
             Console.WindowWidth = Console.LargestWindowWidth;
-            Console.WriteLine("Loading...");
+            Console.WriteLine(LanguageSet.Language.Data[7, L]);
             System.Threading.Thread.Sleep(1000);
-            Console.WriteLine("**************NONA***************");
+            Console.WriteLine("**************Re-NONA-0.3.2***************");
             
             Console.WriteLine(LanguageSet.Language.Data[0,L]);
             
@@ -922,7 +1109,35 @@ namespace Re_NONA_
                             ToolsData.tools1[i] = null;
                         }
                         Tools.Number = 0;
-                        Console.WriteLine("All data cleared");
+                        Console.WriteLine(LanguageSet.Language.Data[21,Program.L]);
+                        break;
+                    case "define":
+                        
+                        if (Elecment.Defined.Ifdefined == true)
+                        {
+                            Console.WriteLine(LanguageSet.Language.Data[22,Program.L]);
+                            Console.WriteLine(LanguageSet.Language.Data[23,Program.L]);
+                            if (Console.ReadLine() == "n")
+                            {
+                                break;
+                            }
+                        }
+                        Elecment.Defined.Define();
+                        break;
+                    case "language":
+                        Console.WriteLine(LanguageSet.Language.Data[24,Program.L]);
+                        if (Console.ReadLine() == "Chinese")
+                        {
+                            L = 1;
+                        }
+                        else if(Console.ReadLine()=="English")
+                        {
+                            L = 0;
+                        }
+                        else
+                        {
+                            Console.WriteLine(LanguageSet.Language.Data[5,L]);
+                        }
                         break;
                     default:
                         Console.WriteLine(LanguageSet.Language.Data[5,L]);
